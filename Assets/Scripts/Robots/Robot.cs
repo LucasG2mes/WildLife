@@ -1,7 +1,5 @@
-using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public abstract class Robot : MonoBehaviour
 {
@@ -23,17 +21,15 @@ public abstract class Robot : MonoBehaviour
         cineCamera.enabled = false;
 
         other.cineCamera.enabled = true;
-        StartCoroutine(EnergyChange());
+        Invoke("EnergyOther", Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time);
         if(other.lastCameraLook != null)
             other.cineCamera.ForceCameraPosition(other.lastCameraLook.position, other.lastCameraLook.rotation);
     }
 
-    IEnumerator EnergyChange()
+    void EnergyOther()
     {
-        yield return new WaitForSeconds(Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time);
         other.isEnergized = true;
     }
-
 
     protected void Update()
     {
