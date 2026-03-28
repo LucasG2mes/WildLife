@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4306497666251412280}
   - component: {fileID: 5163194690236641619}
   - component: {fileID: 3232613747914957987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,6 +112,65 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1042640797019745682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9027218445524020698}
+  - component: {fileID: 6648995283660145244}
+  m_Layer: 0
+  m_Name: SpringAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9027218445524020698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042640797019745682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8385213310403457690}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &6648995283660145244
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042640797019745682}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1835292236557728384
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +183,7 @@ GameObject:
   - component: {fileID: 8352079357807191339}
   - component: {fileID: 4892031509267583066}
   - component: {fileID: 2623854896344082107}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +295,7 @@ GameObject:
   - component: {fileID: 1630514353409416064}
   - component: {fileID: 7686652026005752070}
   - component: {fileID: 5957454164087216625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5521480119599572002}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,6 +567,7 @@ Transform:
   - {fileID: 2757637174075819388}
   - {fileID: 5164643617767805611}
   - {fileID: 4765311398513048533}
+  - {fileID: 9027218445524020698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7765910114578575336
@@ -528,8 +588,7 @@ MonoBehaviour:
   other: {fileID: 0}
   cineCamera: {fileID: 7402807898732305917}
   raycastOffset: {fileID: 5521480119599572002}
-  magnet: {fileID: 5764972114139174282}
-  maxDistance: 13
+  magnet: {fileID: 1222292312052874351}
 --- !u!143 &1103693334608446767
 CharacterController:
   m_ObjectHideFlags: 0
@@ -567,6 +626,9 @@ GameObject:
   - component: {fileID: 8825597037568539518}
   - component: {fileID: 3433225538310582685}
   - component: {fileID: 5230644663374111036}
+  - component: {fileID: 6616552493517062553}
+  - component: {fileID: 1078599566746573083}
+  - component: {fileID: 1222292312052874351}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -582,9 +644,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5764972114139174282}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -0.000000059605, z: 0.485}
-  m_LocalScale: {x: 0.27875, y: 0.27875, z: 0.052748848}
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0.485}
+  m_LocalScale: {x: 0.27875003, y: 0.27875, z: 0.052748848}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8385213310403457690}
@@ -667,6 +729,76 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6616552493517062553
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764972114139174282}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!145 &1078599566746573083
+SpringJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764972114139174282}
+  serializedVersion: 4
+  m_ConnectedBody: {fileID: 6648995283660145244}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_Spring: 10
+  m_Damper: 150
+  m_MinDistance: 0
+  m_MaxDistance: 0.5
+  m_Tolerance: 0.01
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 0
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!114 &1222292312052874351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5764972114139174282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2b07b01fd9e3048982502c05e45a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagnetHook
+  hookControl: {fileID: 1078599566746573083}
+  pullForce: 350
+  maxPullableMass: 49
+  magnetSpeed: 75
+  playerPullSpeed: 12
+  maxDistance: 15
+  pullself: 0
 --- !u!1 &7027977058262196461
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +909,7 @@ MonoBehaviour:
       Height: 1.36
     Bottom:
       Radius: 2.3
-      Height: -0.46
+      Height: -0.68
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
