@@ -44,7 +44,7 @@ public class RobotManager : MonoBehaviour
 
     public void OnCancelAction(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        //if (context.performed)
             controlledRobot.CancelAction();
     }
 }

@@ -1,13 +1,16 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using static Unity.Cinemachine.CinemachineImpulseManager.ImpulseEvent;
 
 public abstract class Robot : MonoBehaviour
 {
     public CharacterController controller;
     public bool isEnergized;
     public float speed = 5f;
+    public float gravity = -8f;
     Vector3 moveDirection = new();
 
+    public float fall;
     public Robot other;
     public CinemachineCamera cineCamera;
     Transform lastCameraLook = null;
@@ -42,10 +45,16 @@ public abstract class Robot : MonoBehaviour
             forward.Normalize();
 
             Vector3 moveVector = (forward * moveDirection.z + camera.right * moveDirection.x) * Time.deltaTime * speed;
+
+            if (controller.isGrounded)
+                fall = 0;
+            else
+                fall += gravity * Time.deltaTime;
+            moveVector.y = fall;
+
             controller.Move(moveVector);
 
             transform.rotation = Quaternion.LookRotation(forward);
-
         }
     }
 

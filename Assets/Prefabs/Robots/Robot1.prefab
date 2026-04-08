@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 8385213310403457690}
   - component: {fileID: 7765910114578575336}
   - component: {fileID: 1103693334608446767}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Robot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,8 +585,11 @@ MonoBehaviour:
   controller: {fileID: 1103693334608446767}
   isEnergized: 0
   speed: 7
+  gravity: -0.3
+  fall: 0
   other: {fileID: 0}
   cineCamera: {fileID: 7402807898732305917}
+  currentState: 0
   raycastOffset: {fileID: 5521480119599572002}
   magnet: {fileID: 1222292312052874351}
 --- !u!143 &1103693334608446767
@@ -721,7 +724,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -793,12 +796,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagnetHook
   hookControl: {fileID: 1078599566746573083}
-  pullForce: 350
+  pullForce: 120
   maxPullableMass: 49
   magnetSpeed: 75
   playerPullSpeed: 12
   maxDistance: 15
   pullself: 0
+  hit: 0
 --- !u!1 &7027977058262196461
 GameObject:
   m_ObjectHideFlags: 0

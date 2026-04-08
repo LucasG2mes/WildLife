@@ -5,15 +5,16 @@ using static UnityEngine.UI.Image;
 
 public class RobotSmall:Robot
 {
-    enum State
+    public enum State
     {
         Idle,
         Shooting,
         Retracting,
         PullObject,
-        PullSelf
+        PullSelf,
+        Inertial
     }
-    State currentState = State.Idle;
+    public State currentState = State.Idle;
 
 
     public Transform raycastOffset;
@@ -22,11 +23,11 @@ public class RobotSmall:Robot
 
     Vector3 magnetStart;
     Vector3 target;
-    Rigidbody targetRigidBody;
-    GameObject HookPoint;
-
+    Vector3 directionFall;
+    float selfGravity;
     private void Start()
     {
+        selfGravity = gravity;
         magnetStart = magnet.gameObject.transform.localPosition;
     }
 
@@ -54,10 +55,13 @@ public class RobotSmall:Robot
         magnet.gameObject.GetComponent<Rigidbody>().linearVelocity = direction * magnet.magnetSpeed;
 
         float distanceToPlayer = Vector3.Distance(magnet.gameObject.transform.localPosition, magnetStart);
-        Debug.Log(distanceToPlayer);
-        if (distanceToPlayer + 0.05 >= magnet.maxDistance || magnet.hasHooked())
+        if (magnet.hasHooked())
         {
             currentState = State.PullObject;
+        }
+        else if (distanceToPlayer >= Vector3.Distance(target, magnetStart) || magnet.hit)
+        {
+            currentState = State.Retracting;
         }
     }
 
@@ -65,27 +69,22 @@ public class RobotSmall:Robot
     {
         float distanceToPlayer = Vector3.Distance(magnet.gameObject.transform.localPosition, magnetStart);
         if (magnet.hasHooked()) { }
-        {
             if (magnet.pullself)
-            {
                 currentState = State.PullSelf;
-            }
-        }
 
         if (distanceToPlayer < 1.5f)
-        {
             currentState = State.Retracting;
-        }
     }
 
     void PullSelf()
     {
+        gravity =  0;
         float distanceToHook = Vector3.Distance(magnetStart, magnet.gameObject.transform.localPosition);
-
         if (distanceToHook > 0.8f)
         {
             Vector3 direction = (magnet.gameObject.transform.position - transform.position).normalized;
             Vector3 move = direction * magnet.playerPullSpeed * Time.deltaTime;
+            directionFall = direction;
             controller.Move(move);
         }
         else
@@ -94,8 +93,23 @@ public class RobotSmall:Robot
         }
     }
 
+    void InertialMove()
+    {
+        gravity = selfGravity;
+        if (!controller.isGrounded)
+        {
+            Vector3 move = directionFall * magnet.playerPullSpeed * Time.deltaTime;
+            controller.Move(move);
+        }
+        else
+        {
+            currentState = State.Idle;
+        }
+    }
+
     void Retract()
     {
+        gravity = selfGravity;
         magnet.ReleaseHooked();
         if (Vector3.Distance(magnet.gameObject.transform.localPosition, magnetStart) < 0.1f)
         {
@@ -105,7 +119,7 @@ public class RobotSmall:Robot
 
     public override void TakeAction()
     {
-        //if(currentState == State.Idle)
+        if(currentState == State.Idle || currentState == State.Retracting)
         {
             SearchTarget();
         }
@@ -114,7 +128,12 @@ public class RobotSmall:Robot
 
     public override void CancelAction()
     {
-        if (currentState != State.Idle && currentState != State.Retracting)
+        if (currentState == State.PullSelf)
+        {
+            magnet.ReleaseHooked();
+            currentState = State.Inertial;
+        }
+        else if(currentState != State.Inertial)
         {
             Debug.Log("é pra soltar");
             currentState = State.Retracting;
@@ -135,6 +154,9 @@ public class RobotSmall:Robot
                 break;
             case State.PullSelf:
                 PullSelf();
+                break;
+            case State.Inertial:
+                InertialMove();
                 break;
             case State.Retracting:
                 Retract();
